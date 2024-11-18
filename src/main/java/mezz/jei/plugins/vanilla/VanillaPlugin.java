@@ -2,8 +2,12 @@ package mezz.jei.plugins.vanilla;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
+//import mezz.jei.gui.recipes.RecipeInfo;
+//import mezz.jei.gui.recipes.RecipeInfoHelper;
+//import mezz.jei.gui.recipes.RecipeInfoRenderer;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fluids.FluidStack;
@@ -135,6 +139,10 @@ public class VanillaPlugin implements IModPlugin {
 		FluidStackHelper fluidStackHelper = new FluidStackHelper();
 		FluidStackRenderer fluidStackRenderer = new FluidStackRenderer();
 		ingredientRegistration.register(VanillaTypes.FLUID, fluidStacks, fluidStackHelper, fluidStackRenderer);
+//
+//		RecipeInfoHelper helper = new RecipeInfoHelper<>();
+//		RecipeInfoRenderer renderer = new RecipeInfoRenderer();
+//		ingredientRegistration.register(RecipeInfo.RECIPE_INFO, Collections.emptyList(), helper, renderer);
 
 		List<EnchantmentData> enchantments = EnchantDataListFactory.create();
 		EnchantedBookCache enchantedBookCache = new EnchantedBookCache();

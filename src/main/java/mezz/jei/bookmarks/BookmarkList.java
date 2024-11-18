@@ -10,6 +10,7 @@ import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
+import mezz.jei.gui.recipes.RecipeLayout;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.JsonToNBT;
@@ -31,8 +32,8 @@ import org.apache.commons.io.IOUtils;
 
 public class BookmarkList implements IIngredientGridSource {
 
-	private static final String MARKER_OTHER = "O:";
-	private static final String MARKER_STACK = "T:";
+	public static final String MARKER_OTHER = "O:";
+	public static final String MARKER_STACK = "T:";
 
 	private final List<Object> list = new LinkedList<>();
 	private final List<IIngredientListElement> ingredientListElements = new LinkedList<>();
@@ -42,6 +43,8 @@ public class BookmarkList implements IIngredientGridSource {
 	public BookmarkList(IngredientRegistry ingredientRegistry) {
 		this.ingredientRegistry = ingredientRegistry;
 	}
+
+
 
 	public <T> boolean add(T ingredient) {
 		Object normalized = normalize(ingredient);
@@ -117,7 +120,7 @@ public class BookmarkList implements IIngredientGridSource {
 		}
 	}
 
-	private static <T> String getUid(IIngredientListElement<T> element) {
+	public static <T> String getUid(IIngredientListElement<T> element) {
 		IIngredientHelper<T> ingredientHelper = element.getIngredientHelper();
 		return ingredientHelper.getUniqueId(element.getIngredient());
 	}

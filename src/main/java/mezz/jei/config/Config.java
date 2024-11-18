@@ -3,6 +3,7 @@ package mezz.jei.config;
 import javax.annotation.Nullable;
 import java.awt.Color;
 import java.io.File;
+import java.io.IOException;
 import java.util.Collections;
 import java.util.EnumSet;
 import java.util.HashSet;
@@ -68,6 +69,8 @@ public final class Config {
 	private static LocalizedConfiguration searchColorsConfig;
 	@Nullable
 	private static File bookmarkFile;
+	@Nullable
+	private static File bookmarkRecipeFile;
 
 	private static final ConfigValues defaultValues = new ConfigValues();
 	private static final ConfigValues values = new ConfigValues();
@@ -346,6 +349,11 @@ public final class Config {
 		return bookmarkFile;
 	}
 
+	@Nullable
+	public static File getBookmarkRecipeFile() {
+		return bookmarkRecipeFile;
+	}
+
 	public static void preInit(FMLPreInitializationEvent event) {
 
 		File jeiConfigurationDir = new File(event.getModConfigurationDirectory(), Constants.MOD_ID);
@@ -362,6 +370,7 @@ public final class Config {
 		}
 
 		bookmarkFile = new File("./", "hei_bookmarks.ini");
+		bookmarkRecipeFile = new File("./", "yei_recipes_bookmarks.ini");
 		File oldBookmarkFile = new File(jeiConfigurationDir, "bookmarks.ini");
 		if (oldBookmarkFile.exists() && !bookmarkFile.exists()) {
 			try {
@@ -371,6 +380,15 @@ public final class Config {
 				}
 			} catch (SecurityException e) {
 				Log.get().error("Could not move the old bookmark file from {} to {}", jeiConfigurationDir, "./", e);
+				return;
+			}
+		}
+
+		if (!bookmarkRecipeFile.exists()){
+			try{
+				bookmarkRecipeFile.createNewFile();
+			} catch (IOException e) {
+				Log.get().error("Could not create config {}", bookmarkRecipeFile.getAbsolutePath(), e);
 				return;
 			}
 		}

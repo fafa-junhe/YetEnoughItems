@@ -154,6 +154,16 @@ public class Ingredients implements IIngredients {
 	}
 
 	@Override
+	public Map<IIngredientType, List<List>> getOutputs() {
+		return outputs;
+	}
+
+	@Override
+	public Map<IIngredientType, List<List>> getInputs() {
+		return inputs;
+	}
+
+	@Override
 	@Deprecated
 	public <T> List<List<T>> getOutputs(Class<? extends T> ingredientClass) {
 		IIngredientRegistry ingredientRegistry = Internal.getIngredientRegistry();

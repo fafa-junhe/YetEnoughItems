@@ -54,7 +54,7 @@ public class GuiTextFieldFilter extends GuiTextField {
 			setText(filterText);
 		}
 		List<IIngredientListElement> ingredientList = ingredientFilter.getIngredientList();
-		if (ingredientList.size() == 0) {
+		if (ingredientList.isEmpty()) {
 			setTextColor(Color.red.getRGB());
 		} else {
 			setTextColor(Color.white.getRGB());

@@ -163,7 +163,7 @@ public class LeftAreaDispatcher implements IShowsRecipeFocuses, IPaged {
 	public boolean previousPage() {
 		current--;
 		if (current < 0) {
-			current = contents.size();
+			current = contents.size() - 1;
 		}
 		navigation.updatePageState();
 		return true;

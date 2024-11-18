@@ -18,7 +18,7 @@ jei.tooltip.not.enough.space=Hier ist nicht genug Platz zum Anzeigen der Zutaten
 jei.tooltip.ingredient.list.disabled=Die HEI-Oberfläche ist deaktiviert.
 jei.tooltip.ingredient.list.disabled.how.to.fix=Klicke auf %s zum Aktivieren.
 jei.tooltip.bookmarks=HEI-Lesezeichen
-jei.tooltip.bookmarks.nokey=Füge eine Tastenkombination für HEI-Lesezeichen in den Steuerungs-Einstellungen hinzu.
+jei.tooltip.bookmarks.usage.nokey=Füge eine Tastenkombination für HEI-Lesezeichen in den Steuerungs-Einstellungen hinzu.
 jei.tooltip.bookmarks.usage.key=Bewege den Mauszeiger über ein Item und drücke "%s", um es als Lesezeichen zu speichern.
 jei.tooltip.bookmarks.not.enough.space=Hier ist nicht genug Platz zum Anzeigen des Lesezeichens.
 

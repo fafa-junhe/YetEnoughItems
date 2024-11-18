@@ -1,6 +1,7 @@
 package mezz.jei.api.ingredients;
 
 import java.util.List;
+import java.util.Map;
 
 import mezz.jei.api.gui.IGuiIngredientGroup;
 import mezz.jei.api.gui.IRecipeLayout;
@@ -90,6 +91,22 @@ public interface IIngredients {
 	 * @since JEI 4.12.0
 	 */
 	<T> List<List<T>> getOutputs(IIngredientType<T> ingredientType);
+
+	/**
+	 * Get all the outputs.
+	 * Each list element represents one slot.
+	 *
+	 * @since YEI
+	 */
+	Map<IIngredientType, List<List>> getOutputs();
+
+	/**
+	 * Get all the inputs.
+	 * Each list element represents one slot.
+	 *
+	 * @since YEI
+	 */
+	Map<IIngredientType, List<List>> getInputs();
 
 	/**
 	 * Sets a single recipe input. For recipes with only one input slot.

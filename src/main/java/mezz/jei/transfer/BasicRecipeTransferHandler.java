@@ -115,7 +115,7 @@ public class BasicRecipeTransferHandler<C extends Container> implements IRecipeT
 				stackHelper.getMatchingItemsWithSensitiveCount(availableItemStacks, itemStackGroup.getGuiIngredients()) :
 				stackHelper.getMatchingItems(availableItemStacks, itemStackGroup.getGuiIngredients());
 
-		if (matchingItemsResult.missingItems.size() > 0) {
+		if (!matchingItemsResult.missingItems.isEmpty()) {
 			String message = Translator.translateToLocal("jei.tooltip.error.recipe.transfer.missing");
 			return handlerHelper.createUserErrorForSlots(message, matchingItemsResult.missingItems);
 		}

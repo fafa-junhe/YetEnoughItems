@@ -6,6 +6,7 @@ import java.util.Map;
 
 import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
 import mezz.jei.Tags;
+import mezz.jei.gui.overlay.bookmarks.BookmarkRecipeOverlay;
 import mezz.jei.ingredients.*;
 import mezz.jei.util.ErrorUtil;
 import mezz.jei.util.LoggedTimer;
@@ -101,8 +102,9 @@ public class JeiStarter {
 		IngredientListOverlay ingredientListOverlay = new IngredientListOverlay(ingredientFilter, ingredientRegistry, guiScreenHelper);
 
 		BookmarkOverlay bookmarkOverlay = new BookmarkOverlay(bookmarkList, jeiHelpers.getGuiHelper(), guiScreenHelper);
+		BookmarkRecipeOverlay bookmarkRecipeOverlay = new BookmarkRecipeOverlay(jeiHelpers.getGuiHelper(), guiScreenHelper);
 		RecipesGui recipesGui = new RecipesGui(recipeRegistry, ingredientRegistry);
-		JeiRuntime jeiRuntime = new JeiRuntime(recipeRegistry, ingredientListOverlay, bookmarkOverlay, recipesGui, ingredientFilter);
+		JeiRuntime jeiRuntime = new JeiRuntime(recipeRegistry, ingredientListOverlay, bookmarkOverlay, bookmarkRecipeOverlay, recipesGui, ingredientFilter);
 		Internal.setRuntime(jeiRuntime);
 		timer.stop();
 
@@ -112,6 +114,7 @@ public class JeiStarter {
 
 		LeftAreaDispatcher leftAreaDispatcher = new LeftAreaDispatcher(guiScreenHelper);
 		leftAreaDispatcher.addContent(bookmarkOverlay);
+		leftAreaDispatcher.addContent(bookmarkRecipeOverlay);
 
 		GuiEventHandler guiEventHandler = new GuiEventHandler(guiScreenHelper, leftAreaDispatcher, ingredientListOverlay, recipeRegistry);
 		Internal.setGuiEventHandler(guiEventHandler);

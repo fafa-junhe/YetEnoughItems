@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import mezz.jei.api.ingredients.IIngredients;
+import mezz.jei.ingredients.Ingredients;
 import net.minecraftforge.fml.client.config.HoverChecker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
@@ -303,6 +305,10 @@ public class RecipesGui extends GuiScreen implements IRecipesGui, IShowsRecipeFo
 				logic.previousPage();
 				return;
 			}
+
+		}
+		for (RecipeLayout recipeLayout : recipeLayouts) {
+			recipeLayout.handleMouseInput();
 		}
 		super.handleMouseInput();
 	}
@@ -445,7 +451,7 @@ public class RecipesGui extends GuiScreen implements IRecipesGui, IShowsRecipeFo
 			logic.nextRecipeCategory();
 		} else if (guibutton.id == previousRecipeCategory.id) {
 			logic.previousRecipeCategory();
-		} else if (guibutton.id >= RecipeLayout.recipeTransferButtonIndex && mc != null) {
+		} else if (guibutton.id >= RecipeLayout.recipeTransferButtonIndex && guibutton.id < RecipeLayout.recipeBookmarkButtonIndex && mc != null) {
 			int recipeIndex = guibutton.id - RecipeLayout.recipeTransferButtonIndex;
 			RecipeLayout recipeLayout = recipeLayouts.get(recipeIndex);
 			boolean maxTransfer = GuiScreen.isShiftKeyDown();
@@ -453,6 +459,18 @@ public class RecipesGui extends GuiScreen implements IRecipesGui, IShowsRecipeFo
 			EntityPlayerSP player = mc.player;
 			if (container != null && player != null && RecipeTransferUtil.transferRecipe(container, recipeLayout, player, maxTransfer)) {
 				close();
+			}
+		} else if (guibutton.id >= RecipeLayout.recipeBookmarkButtonIndex && mc != null) {
+			int recipeIndex = guibutton.id - RecipeLayout.recipeBookmarkButtonIndex;
+			RecipeLayout recipeLayout = recipeLayouts.get(recipeIndex);
+            assert recipeLayout.getFocus() != null;
+			String mode = recipeLayout.getFocus().getMode().name();
+            if (mode.equals("INPUT")){
+				IIngredients ingredients = new Ingredients();
+//				recipeLayout.(ingredients);
+				Internal.getBookmarkList().add(recipeLayout.getItemStacks().getGuiIngredients());
+			}else if (mode.equals("OUTPUT")){
+				Internal.getBookmarkList().add(recipeLayout.getFocus().getValue());
 			}
 		}
 	}
@@ -494,7 +512,7 @@ public class RecipesGui extends GuiScreen implements IRecipesGui, IShowsRecipeFo
 		recipeLayouts.clear();
 		recipeLayouts.addAll(logic.getRecipeLayouts(recipeXOffset, guiTop + headerHeight + recipeSpacing, spacingY));
 		addRecipeTransferButtons(mc, recipeLayouts);
-
+		addRecipeBookmarkButtons(mc, recipeLayouts);
 		nextPage.enabled = previousPage.enabled = logic.hasMultiplePages();
 		nextRecipeCategory.enabled = previousRecipeCategory.enabled = logic.hasMultipleCategories();
 
@@ -515,6 +533,22 @@ public class RecipesGui extends GuiScreen implements IRecipesGui, IShowsRecipeFo
 
 			for (RecipeLayout recipeLayout : recipeLayouts) {
 				RecipeTransferButton button = recipeLayout.getRecipeTransferButton();
+				if (button != null) {
+					button.init(container, player);
+					buttonList.add(button);
+				}
+			}
+		}
+	}
+
+	private void addRecipeBookmarkButtons(Minecraft minecraft, List<RecipeLayout> recipeLayouts) {
+
+		EntityPlayer player = minecraft.player;
+		if (player != null) {
+			Container container = getParentContainer();
+
+			for (RecipeLayout recipeLayout : recipeLayouts) {
+				RecipeBookmarkButton button = recipeLayout.getRecipeBookmarkButton();
 				if (button != null) {
 					button.init(container, player);
 					buttonList.add(button);

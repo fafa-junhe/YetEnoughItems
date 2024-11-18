@@ -29,6 +29,14 @@ public interface IRecipeLayout {
 	 */
 	IGuiFluidStackGroup getFluidStacks();
 
+
+	/**
+	 *
+	 * Get RecipeWrapper of this recipe layout.
+	 *
+	 */
+	IRecipeWrapper getRecipeWrapper();
+
 	/**
 	 * Get all the ingredients of one type that are displayed on this recipe layout.
 	 * Init and set them in your recipe category.

@@ -8,7 +8,7 @@ import mezz.jei.api.ingredients.IModIngredientRegistration;
 import mezz.jei.api.ingredients.VanillaTypes;
 
 /**
- * A type of ingredient (i.e. ItemStack, FluidStack, etc) handled by JEI.
+ * A type of ingredient (i.e. ItemStack, FluidStack, RecipeLayout, etc) handled by JEI.
  * Register new types with {@link IModIngredientRegistration#register(IIngredientType, Collection, IIngredientHelper, IIngredientRenderer)}
  *
  * @see VanillaTypes for the built-in vanilla types {@link VanillaTypes#ITEM} and {@link VanillaTypes#FLUID}

@@ -13,18 +13,7 @@ public class DrawableAnimated implements IDrawableAnimated {
 	private final StartDirection startDirection;
 
 	public DrawableAnimated(IDrawableStatic drawable, int ticksPerCycle, IDrawableAnimated.StartDirection startDirection, boolean inverted) {
-		IDrawableAnimated.StartDirection animationStartDirection = startDirection;
-		if (inverted) {
-			if (startDirection == IDrawableAnimated.StartDirection.TOP) {
-				animationStartDirection = IDrawableAnimated.StartDirection.BOTTOM;
-			} else if (startDirection == IDrawableAnimated.StartDirection.BOTTOM) {
-				animationStartDirection = IDrawableAnimated.StartDirection.TOP;
-			} else if (startDirection == IDrawableAnimated.StartDirection.LEFT) {
-				animationStartDirection = IDrawableAnimated.StartDirection.RIGHT;
-			} else {
-				animationStartDirection = IDrawableAnimated.StartDirection.LEFT;
-			}
-		}
+		StartDirection animationStartDirection = getStartDirection(startDirection, inverted);
 
 		int tickTimerMaxValue;
 		if (animationStartDirection == IDrawableAnimated.StartDirection.TOP || animationStartDirection == IDrawableAnimated.StartDirection.BOTTOM) {
@@ -35,6 +24,22 @@ public class DrawableAnimated implements IDrawableAnimated {
 		this.drawable = drawable;
 		this.tickTimer = new TickTimer(ticksPerCycle, tickTimerMaxValue, !inverted);
 		this.startDirection = animationStartDirection;
+	}
+
+	private static StartDirection getStartDirection(StartDirection startDirection, boolean inverted) {
+		StartDirection animationStartDirection = startDirection;
+		if (inverted) {
+			if (startDirection == StartDirection.TOP) {
+				animationStartDirection = StartDirection.BOTTOM;
+			} else if (startDirection == StartDirection.BOTTOM) {
+				animationStartDirection = StartDirection.TOP;
+			} else if (startDirection == StartDirection.LEFT) {
+				animationStartDirection = StartDirection.RIGHT;
+			} else {
+				animationStartDirection = StartDirection.LEFT;
+			}
+		}
+		return animationStartDirection;
 	}
 
 	public DrawableAnimated(IDrawableStatic drawable, ITickTimer tickTimer, StartDirection startDirection) {
